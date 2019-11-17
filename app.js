@@ -1,11 +1,13 @@
 const parse = require('csv-parse');
 const express = require('express');
-
+const morgan = require('morgan');
 const fs = require('fs');
 const app = express();
 
 const port = 3000;
 const questions = {};
+
+app.use(morgan('combined'));
 
 fs.createReadStream('questions.csv')
   .pipe(parse())
