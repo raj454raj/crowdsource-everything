@@ -15,13 +15,12 @@ const getFileName = function(fileName) {
 };
 
 const getNextProblem = function(handle) {
-  return {question_id: 6, question_content: "hello world?"};
+  return {question_id: 6, question_content: "hello world?" + Math.random().toString()};
 };
 
 app.use(bodyParser.json());
 app.use(express.static('static'));
 app.use(morgan('combined'));
-
 
 app.get('/', function(req, res) {
   res.send('Welcome to Crowdsourcing!');

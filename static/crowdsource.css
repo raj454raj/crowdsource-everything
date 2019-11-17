@@ -16,8 +16,8 @@ input[type=number]:not(.browser-default):focus:not([readonly]),
 input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
   border-bottom: 1px solid #5aad30;
-  -webkit-box-shadow: 0 1px 0 0 #26a69a;
-          box-shadow: 0 1px 0 0 #26a69a;
+  -webkit-box-shadow: 0 1px 0 0 #5aad30;
+          box-shadow: 0 1px 0 0 #5aad30;
 }
 
 .crowdsource-list-item {
@@ -26,4 +26,35 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 .body-wrapper-div {
     margin-top: 10%;
+}
+
+.btn, .btn-large {
+    background-color: #5aad30;
+}
+
+.btn:hover, .btn-large:hover {
+    opacity: 0.8;
+    background-color: #5aad30;
+}
+
+.btn:focus, .btn-large:focus {
+    background-color: #5aad30;
+}
+
+.btn-floating {
+    background-color: #5aad30;
+}
+
+[type="radio"]:checked + label:after {
+    border: 2px solid #5aad30;
+    background-color: #5aad30;
+}
+
+[type="radio"].with-gap:checked + label:before {
+    border-radius: 50%;
+    border: 2px solid #5aad30;
+}
+
+label {
+    color: black;
 }

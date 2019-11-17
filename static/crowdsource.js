@@ -18,6 +18,12 @@ $(document).ready(function() {
     }
   });
 
+  document.getElementById("github-handle").addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+      document.getElementById("submit-github-handle").click();
+    }
+  });
+
   $("#submit-github-handle").on('click', function() {
     githubHandle = $("#github-handle").val();
     if (!githubHandle) { // Todo check for valid handles
@@ -25,6 +31,7 @@ $(document).ready(function() {
       return;
     }
     console.log(githubHandle);
+    $("#github-handle-div").fadeOut();
     $.ajax({
       url: "/get_next_problem",
       method: "GET",
@@ -32,14 +39,14 @@ $(document).ready(function() {
       contentType: 'application/json',
       success: function(response) {
         populateQuestionDetails(response);
-        $("#github-handle-div").fadeOut();
-        $("#questions-complete-div").fadeIn();
+        setTimeout(function() {
+          $("#questions-complete-div").fadeIn()
+        }, 500);
       }
     });
   });
 
-  $('#crowdsource-form').on('submit', function(e) {
-    e.preventDefault();
+  $(document).on("change", "input[type=radio][name=answer_value]", function() {
     if (!githubHandle) {
       M.toast({html: 'Please enter your Github handle!'});
       return;
@@ -50,9 +57,12 @@ $(document).ready(function() {
       contentType: 'application/json',
       data: JSON.stringify({question_id: $('#crowdsource-form').data()["questionId"], handle: githubHandle}),
       success: function(response) {
-        console.log(response);
-        populateQuestionDetails(response);
-        $('#crowdsource-form').trigger('reset');
+        $("#questions-complete-div").fadeOut();
+        setTimeout(function() {
+          populateQuestionDetails(response);
+          $('#crowdsource-form').trigger('reset');
+          $("#questions-complete-div").fadeIn();
+        }, 500);
       },
       error: function(err) {
         console.log(err);
