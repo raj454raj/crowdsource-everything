@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/raj454raj/crowdsource-everything#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "csv-parse": "^4.8.2",
     "express": "^4.17.1",
     "morgan": "^1.9.1"

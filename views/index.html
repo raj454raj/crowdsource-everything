@@ -1,13 +1,44 @@
 <html>
   <head>
     <title>Crowdsource Data</title>
+    <link rel="stylesheet" href="materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="crowdsource.css">
+    <script src="materialize/js/materialize.min.js"></script>
     <script type="text/javascript" src="/jquery.min.js"></script>
     <script type="text/javascript" src="/crowdsource.js"></script>
   </head>
-  <body>
-    <div class>
-      <input type="text" id="github-handle" name="handle" placeholder="GitHub Handle">
-      <button id="submit-github-handle">Submit</button>
+
+  <body class="center">
+    <div class="body-wrapper-div">
+      <div class="row" id="github-handle-div">
+          <div class="col s6 offset-s3">
+            <div class="card blue-grey darken-1">
+              <div class="card-content white-text">
+                <span class="card-title">Github Handle</span>
+                <input type="text" id="github-handle" name="crowdsourcing_github_handle" class="white-text">
+              </div>
+              <div class="card-action">
+                <button id="submit-github-handle" class="waves-effect waves-light btn">Submit</button>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="row black-text" id="questions-complete-div" style="display: none;">
+        <div class="col s10 offset-s1">
+          <div class="card darken-1">
+            <div class="card-content">
+              <form id="crowdsource-form" data-question-id="2">
+                <h3 id="crowdsource-question"></h3>
+                <div id="crowdsource-form-content" style="display: inline-flex;">
+                </div>
+                <div>
+                  <input type="submit" value="Submit" class="btn" id="crowdsource-modal-submit-button"/>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
