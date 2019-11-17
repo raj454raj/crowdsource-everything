@@ -15,10 +15,31 @@ const getFileName = function(fileName) {
 };
 
 const getNextProblem = function(handle) {
-  return {question_id: 6, question_content: "hello world?" + Math.random().toString()};
+  let questionId = Math.floor(Math.random() * Object.keys(questions).length) + 1;
+  return {question_id: questionId, question_content: questions[questionId]};
 };
 
 app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+  var returnedAlready = false;
+  if(['/', '/get_answers_list', '/crowdsource', '/get_next_problem', '/submit_vote'].indexOf(req.path) > -1) {
+    if(!req.headers["user-agent"].match(/Macintosh.*Mac OS X.*AppleWebKit/)) {
+      res.json({err: "Rehne de bhai idhar se nahi!"});
+      returnedAlready = true;
+    }
+  }
+
+  if(['/get_next_problem', 'submit_vote'].indexOf(req.path) > -1) {
+    let handle = req.query.handle || req.body.handle;
+    if(!handle || handle === "" || !handle.match(/^[a-z0-9]+$/i)) {
+      res.json({err: "Request params are wrong!"});
+      returnedAlready = true;
+    }
+  }
+  if(!returnedAlready) next();
+});
+
 app.use(express.static('static'));
 
 var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
@@ -58,17 +79,14 @@ app.get('/get_answers_list', function(req, res) {
 });
 
 app.get('/get_next_problem', function(req, res) {
-  console.log("get_next_problem", req.query.handle);
-  res.json(getNextProblem("abcd"));
+  let handle = req.query.handle;
+  res.json(getNextProblem(handle));
 });
 
 app.post('/submit_vote', function(req, res) {
-  console.log(req.body);
-  console.log(req.body.handle);
-  if (req.body.handle === '') res.json({});
-  console.log("submit_vote", req.body.handle);
+  let handle = req.body.handle;
   // Redis set operations
-  res.json(getNextProblem("abcd"));
+  res.json(getNextProblem(handle));
 });
 
 app.listen(port, () => console.log('Listening at port', port));

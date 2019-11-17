@@ -11,6 +11,10 @@ $(document).ready(function() {
     url: "/get_answers_list",
     method: "GET",
     success: function(response) {
+      if (response["err"]) {
+        M.toast({html: response["err"]});
+        return;
+      }
       var $content = $('#crowdsource-form-content');
       $.each(response, function(val, display) {
         $content.append('<p class="crowdsource-list-item"><label><input name="answer_value" type="radio" value="' + val + '" required/><span>' + display + '</span></label></p>');
@@ -38,6 +42,10 @@ $(document).ready(function() {
       data: {handle: githubHandle},
       contentType: 'application/json',
       success: function(response) {
+        if (response["err"]) {
+          M.toast({html: response["err"]});
+          return;
+        }
         populateQuestionDetails(response);
         setTimeout(function() {
           $("#questions-complete-div").fadeIn()
@@ -57,6 +65,10 @@ $(document).ready(function() {
       contentType: 'application/json',
       data: JSON.stringify({question_id: $('#crowdsource-form').data()["questionId"], handle: githubHandle}),
       success: function(response) {
+        if (response["err"]) {
+          M.toast({html: response["err"]});
+          return;
+        }
         $("#questions-complete-div").fadeOut();
         setTimeout(function() {
           populateQuestionDetails(response);
