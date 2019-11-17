@@ -20,7 +20,9 @@ const getNextProblem = function(handle) {
 
 app.use(bodyParser.json());
 app.use(express.static('static'));
-app.use(morgan('combined'));
+
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+app.use(morgan('combined', { stream: accessLogStream }));
 
 app.get('/', function(req, res) {
   res.send('Welcome to Crowdsourcing!');
@@ -33,7 +35,6 @@ app.get('/crowdsource', function(req, res) {
       questions[row[0]] = row[1];
     })
     .on('end', () => {
-      console.log(questions);
     });
 
   res.sendFile(getFileName('views/index.html'));
@@ -57,7 +58,7 @@ app.get('/get_answers_list', function(req, res) {
 });
 
 app.get('/get_next_problem', function(req, res) {
-  console.log("get_next_problem", req.params);
+  console.log("get_next_problem", req.query.handle);
   res.json(getNextProblem("abcd"));
 });
 
