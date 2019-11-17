@@ -1,0 +1,22 @@
+{
+  "name": "crowdsource-everything",
+  "version": "1.0.0",
+  "description": "## Usage",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raj454raj/crowdsource-everything.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raj454raj/crowdsource-everything/issues"
+  },
+  "homepage": "https://github.com/raj454raj/crowdsource-everything#readme",
+  "dependencies": {
+    "csv-parse": "^4.8.2"
+  }
+}
