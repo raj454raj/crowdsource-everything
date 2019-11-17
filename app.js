@@ -1,6 +1,7 @@
 const parse = require('csv-parse');
 const express = require('express');
 const morgan = require('morgan');
+const path = require('path');
 const fs = require('fs');
 const app = express();
 
@@ -20,6 +21,10 @@ fs.createReadStream('questions.csv')
 
 app.get('/', function(req, res) {
   res.send('Welcome to Crowdsourcing!');
+});
+
+app.get('/crowdsource', function(req, res) {
+  res.sendFile(path.join(__dirname + '/views/index.html'));
 });
 
 app.listen(port, () => console.log('Listening at port', port));
